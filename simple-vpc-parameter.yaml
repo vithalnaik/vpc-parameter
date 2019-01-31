@@ -1,0 +1,19 @@
+imports:
+- path: server.jinja
+- path: network.jinja
+
+resources:
+- name: server-1
+  type: server.jinja
+  properties:
+    name: server1 
+    zone: us-central1-f 
+    subnetwork: subnet-a
+- name: network-1
+  type: network.jinja
+- name: server-2
+  type: server.jinja
+  properties:
+    name: server-2
+    zone: us-east1-b
+    subnetwork: subnet-b

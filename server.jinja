@@ -1,0 +1,19 @@
+resources:
+  - name: {{ properties["name"] }}
+    type: compute.v1.instance
+    properties:
+      zone: {{ properties["zone"] }}
+      machineType: https://www.googleapis.com/compute/v1/projects/{{ env["project"] }}/zones/{{ properties["zone"] }}/machineTypes/n1-standard-1
+      disks:
+      - deviceName: boot
+        type: PERSISTENT
+        boot: true
+        autoDelete: true
+        initializeParams:
+          sourceImage: https://www.googleapis.com/compute/v1/projects/gce-uefi-images/global/images/ubuntu-1804-bionic-v20181222
+      networkInterfaces:
+      - network: $(ref.network-1.selfLink)
+        subnetwork: $(ref.{{ properties["subnetwork"] }}.selfLink)
+        accessConfigs:
+        - name: External NAT
+          type: ONE_TO_ONE_NAT
